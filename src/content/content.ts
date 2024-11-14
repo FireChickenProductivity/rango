@@ -1,43 +1,42 @@
 import browser from "webextension-polyfill";
-import { ContentRequest } from "../typings/ContentRequest";
-import { cacheHintOptions } from "./options/cacheHintOptions";
-import {
-	getClipboardManifestV3,
-	copyToClipboardManifestV3,
-} from "./utils/clipboardManifestV3";
-import { triggerHintsUpdate } from "./hints/triggerHintsUpdate";
-import observe from "./observers";
-import { addUrlToTitle } from "./utils/addUrlToTitle";
+// eslint-disable-next-line import/no-unassigned-import
+import "requestidlecallback-polyfill";
+import { type RequestFromBackground } from "../typings/RequestFromBackground";
+import { type TalonAction } from "../typings/RequestFromTalon";
 import {
 	markHintsAsKeyboardReachable,
-	initKeyboardClicking,
 	restoreKeyboardReachableHints,
 } from "./actions/keyboardClicking";
-import { updateHintsInTab } from "./utils/getHintsInTab";
-import { listenToScrollAndResizeEvents } from "./utils/listenToScrollAndResizeEvents";
 import { runRangoActionWithTarget } from "./actions/runRangoActionWithTarget";
 import { runRangoActionWithoutTarget } from "./actions/runRangoActionWithoutTarget";
-
-cacheHintOptions()
-	.then(addUrlToTitle)
-	.then(observe)
-	.then(listenToScrollAndResizeEvents)
-	.then(async () => {
-		const { keyboardClicking } = await browser.storage.local.get(
-			"keyboardClicking"
-		);
-		if (keyboardClicking) {
-			await initKeyboardClicking();
-		}
-	})
-	.catch((error) => {
-		console.error(error);
-	});
+import { reclaimHintsFromCache } from "./hints/hintsCache";
+import { deleteHintsInFrame } from "./hints/hintsInFrame";
+import { synchronizeHints } from "./hints/hintsRequests";
+import {
+	allowToastNotification,
+	notify,
+	notifyTogglesStatus,
+} from "./notify/notify";
+import { updateHintsEnabled } from "./observe";
+import { setNavigationToggle } from "./settings/toggles";
+import { initContentScriptOrWait } from "./setup/initContentScript";
+import {
+	getTitleBeforeDecoration,
+	initTitleDecoration,
+	removeDecorations,
+} from "./utils/decorateTitle";
+import { updateHintsInTab } from "./utils/getHintsInTab";
+import { reclaimHints } from "./wrappers/wrappers";
 
 browser.runtime.onMessage.addListener(
 	async (
-		request: ContentRequest
-	): Promise<string | string[] | boolean | undefined> => {
+		message: unknown
+	): Promise<
+		string | number | string[] | TalonAction[] | boolean | undefined
+	> => {
+		const request = message as RequestFromBackground;
+		await initContentScriptOrWait();
+
 		if ("target" in request) {
 			return runRangoActionWithTarget(request);
 		}
@@ -45,54 +44,75 @@ browser.runtime.onMessage.addListener(
 		try {
 			switch (request.type) {
 				// SCRIPT REQUESTS
-				case "getClipboardManifestV3":
-					return getClipboardManifestV3();
-
-				case "copyToClipboardManifestV3": {
-					copyToClipboardManifestV3(request.text);
+				case "onCompleted": {
+					await synchronizeHints();
 					break;
 				}
 
-				case "getLocation":
-					return [
-						window.location.host,
-						window.location.origin,
-						window.location.pathname,
-					];
-
-				case "updateHintsInTab":
-					updateHintsInTab(request.hints);
+				case "displayToastNotification": {
+					await notify(request.text, request.options);
 					break;
+				}
 
-				case "markHintsAsKeyboardReachable":
-					markHintsAsKeyboardReachable(request.letter);
-					break;
-
-				case "restoreKeyboardReachableHints":
-					restoreKeyboardReachableHints();
-					break;
-
-				case "initKeyboardNavigation":
-					await initKeyboardClicking();
-					break;
-
-				case "checkIfDocumentHasFocus":
-					if (document.hasFocus()) {
-						return true;
+				case "reclaimHints": {
+					const reclaimed = reclaimHintsFromCache(request.amount);
+					if (reclaimed.length < request.amount) {
+						reclaimed.push(...reclaimHints(request.amount - reclaimed.length));
 					}
 
-					// eslint-disable-next-line unicorn/no-useless-promise-resolve-reject, @typescript-eslint/return-await
-					return Promise.reject();
+					deleteHintsInFrame(reclaimed);
+					return reclaimed;
+				}
 
-				case "fullHintsUpdate":
-					await triggerHintsUpdate(true);
+				case "updateHintsInTab": {
+					updateHintsInTab(request.hints);
 					break;
+				}
 
-				case "fullHintsUpdateOnIdle":
-					window.requestIdleCallback(async () => {
-						await triggerHintsUpdate(true);
-					});
+				case "markHintsAsKeyboardReachable": {
+					markHintsAsKeyboardReachable(request.letter);
 					break;
+				}
+
+				case "restoreKeyboardReachableHints": {
+					restoreKeyboardReachableHints();
+					break;
+				}
+
+				case "checkIfDocumentHasFocus": {
+					return document.hasFocus();
+				}
+
+				case "checkContentScriptRunning": {
+					return true;
+				}
+
+				case "updateNavigationToggle": {
+					setNavigationToggle(request.enable);
+					await updateHintsEnabled();
+					await notifyTogglesStatus();
+					break;
+				}
+
+				case "allowToastNotification": {
+					allowToastNotification();
+					break;
+				}
+
+				case "tryToFocusPage": {
+					window.focus();
+					break;
+				}
+
+				case "getTitleBeforeDecoration": {
+					return getTitleBeforeDecoration();
+				}
+
+				case "refreshTitleDecorations": {
+					removeDecorations();
+					await initTitleDecoration();
+					break;
+				}
 
 				default: {
 					const result = await runRangoActionWithoutTarget(request);
@@ -106,3 +126,11 @@ browser.runtime.onMessage.addListener(
 		return undefined;
 	}
 );
+
+(async () => {
+	try {
+		await initContentScriptOrWait();
+	} catch (error: unknown) {
+		console.error(error);
+	}
+})();

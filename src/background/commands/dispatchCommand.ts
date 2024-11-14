@@ -1,19 +1,23 @@
-import { ResponseToTalon } from "../../typings/RequestFromTalon";
-import { RangoAction } from "../../typings/RangoAction";
-import { sendRequestToCurrentTab } from "../messaging/sendRequestToCurrentTab";
-import { noActionResponse } from "../utils/responseObjects";
+import {
+	type ResponseToTalon,
+	type TalonAction,
+} from "../../typings/RequestFromTalon";
+import { type RangoAction } from "../../typings/RangoAction";
+import { sendRequestToContent } from "../messaging/sendRequestToContent";
+import { constructTalonResponse } from "../utils/constructTalonResponse";
+import { promiseWrap } from "../../lib/promiseWrap";
 import { runBackgroundCommand } from "./runBackgroundCommand";
 
-const backgroundCommands = new Set([
+const backgroundCommands = new Set<RangoAction["type"]>([
 	"toggleHints",
 	"enableHints",
 	"disableHints",
 	"resetToggleLevel",
 	"increaseHintSize",
 	"decreaseHintSize",
-	"setHintStyle",
-	"setHintWeight",
+	"copyLocationProperty",
 	"copyCurrentTabMarkdownUrl",
+	"getBareTitle",
 	"enableUrlInTitle",
 	"disableUrlInTitle",
 	"excludeSingleLetterHints",
@@ -29,24 +33,68 @@ const backgroundCommands = new Set([
 	"toggleKeyboardClicking",
 	"moveCurrentTabToNewWindow",
 	"focusPreviousTab",
+	"historyGoBack",
+	"historyGoForward",
+	"openSettingsPage",
+	"openPageInNewTab",
+	"activateTab",
+	"closeTab",
+	"refreshTabMarkers",
+	"toggleTabMarkers",
+	"focusOrCreateTabByUrl",
+	"focusTabByText",
+	"cycleTabsByText",
+	"focusNextTabWithSound",
+	"focusNextMutedTab",
+	"focusNextAudibleTab",
+	"focusTabLastSounded",
+	"muteCurrentTab",
+	"unmuteCurrentTab",
+	"muteTab",
+	"unmuteTab",
+	"muteNextTabWithSound",
+	"unmuteNextMutedTab",
+	"muteAllTabsWithSound",
+	"unmuteAllMutedTabs",
 ]);
 
 export async function dispatchCommand(
 	command: RangoAction
 ): Promise<ResponseToTalon> {
-	const textToCopy = (await (backgroundCommands.has(command.type)
+	const result = (await (backgroundCommands.has(command.type)
 		? runBackgroundCommand(command)
-		: sendRequestToCurrentTab(command))) as string | undefined;
+		: sendRequestToContent(command))) as string | TalonAction[] | undefined;
 
-	if (textToCopy) {
-		return {
-			type: "response",
-			action: {
-				type: "copyToClipboard",
-				textToCopy,
+	if (typeof result === "string") {
+		return constructTalonResponse([
+			{
+				name: "copyToClipboard",
+				textToCopy: result,
 			},
-		};
+		]);
 	}
 
-	return noActionResponse;
+	// In Firefox, when we perform window.focus() in the content script, the page
+	// doesn't receive focus immediately. It seems like the page doesn't focus
+	// until the content script finishes handling the current message callback.
+	// Here we check again and remove the "focusPage" action if necessary.
+	if (result) {
+		const focusActionIndex = result.findIndex(
+			(action) => action.name === "focusPage"
+		);
+
+		if (focusActionIndex !== -1) {
+			const [documentHasFocus] = await promiseWrap(
+				sendRequestToContent({
+					type: "checkIfDocumentHasFocus",
+				}) as Promise<boolean>
+			);
+
+			if (documentHasFocus) {
+				result.splice(focusActionIndex, 1);
+			}
+		}
+	}
+
+	return constructTalonResponse(result ?? []);
 }

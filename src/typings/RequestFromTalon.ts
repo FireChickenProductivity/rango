@@ -1,27 +1,80 @@
-import { RangoAction } from "./RangoAction";
+import { type RangoAction } from "./RangoAction";
 
-export interface RequestFromTalon {
+export type RequestFromTalon = {
 	version?: number;
 	type: "request";
 	action: RangoAction;
-}
+};
 
-export interface TalonAction {
-	type: "noAction" | "copyToClipboard" | "noHintFound";
+type TalonActionCopyToClipboard = {
+	name: "copyToClipboard";
+	textToCopy: string;
+};
+
+type TalonActionTypeTargetCharacters = {
+	name: "typeTargetCharacters";
+	previousName?: "noHintFound";
+};
+
+type TalonActionKey = {
+	name: "key";
+	key: string;
+};
+
+type TalonActionEditDelete = {
+	name: "editDelete";
+	previousName?: "editDeleteAfterDelay";
+};
+
+type TalonActionSleep = {
+	name: "sleep";
+	ms?: number;
+};
+
+type TalonActionFocusPage = {
+	name: "focusPage";
+};
+
+type TalonActionFocusPageAndResend = {
+	name: "focusPageAndResend";
+};
+
+type TalonActionResponseValue = {
+	name: "responseValue";
+	value: any;
+};
+
+type TalonActionOpenInNewTab = {
+	name: "openInNewTab";
+	url: string;
+};
+
+export type TalonAction = { main?: true } & (
+	| TalonActionCopyToClipboard
+	| TalonActionTypeTargetCharacters
+	| TalonActionKey
+	| TalonActionEditDelete
+	| TalonActionSleep
+	| TalonActionFocusPage
+	| TalonActionFocusPageAndResend
+	| TalonActionResponseValue
+	| TalonActionOpenInNewTab
+);
+
+export type ResponseToTalon = {
+	type: "response";
+	action: TalonActionLegacy;
+	actions: TalonAction[];
+};
+
+export type TalonActionLegacy = {
+	type:
+		| "noAction"
+		| "copyToClipboard"
+		| "key"
+		| "noHintFound"
+		| "editDelete"
+		| "editDeleteAfterDelay";
 	textToCopy?: string;
-	text?: string;
-}
-
-export interface ResponseToTalon {
-	type: "response";
-	action: TalonAction;
-}
-interface TalonActionVersion0 {
-	type: "ok" | "copyLink";
-	target?: string;
-}
-
-export interface ResponseToTalonVersion0 {
-	type: "response";
-	action: TalonActionVersion0;
-}
+	key?: string;
+};

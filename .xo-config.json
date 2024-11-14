@@ -1,0 +1,102 @@
+{
+	"extends": ["xo-react", "plugin:react/jsx-runtime"],
+	"parserOptions": {
+		"project": "./tsconfig.xo.json"
+	},
+	"envs": ["browser"],
+	"prettier": "true",
+	"globals": {
+		"page": true,
+		"browser": true,
+		"context": true,
+		"jestPuppeteer": true
+	},
+	"rules": {
+		"@typescript-eslint/switch-exhaustiveness-check": "off",
+		"n/prefer-global/process": "off",
+		"unicorn/prefer-top-level-await": "off",
+		"n/file-extension-in-import": "off",
+		"import/extensions": [
+			2,
+			"never",
+			{
+				"png": "always",
+				"html": "always"
+			}
+		],
+		"unicorn/filename-case": [
+			"error",
+			{
+				"cases": {
+					"camelCase": true,
+					"pascalCase": true
+				}
+			}
+		],
+		"complexity": "off",
+		"@typescript-eslint/ban-types": "off",
+		"unicorn/prevent-abbreviations": [
+			"error",
+			{
+				"extendDefaultAllowList": true,
+				"allowList": {
+					"arg": true,
+					"i": true
+				},
+				"replacements": {
+					"props": false
+				}
+			}
+		]
+	},
+	"overrides": [
+		{
+			"files": ["src/background/**"],
+			"rules": {
+				"no-restricted-imports": [
+					"error",
+					{
+						"patterns": [
+							{
+								"group": ["**/content/**"],
+								"message": "Modules within /src/background can't import from /src/content"
+							}
+						]
+					}
+				]
+			}
+		},
+		{
+			"files": ["src/content/**"],
+			"rules": {
+				"no-restricted-imports": [
+					"error",
+					{
+						"patterns": [
+							{
+								"group": ["**/background/**"],
+								"message": "Modules within /src/content can't import from /src/background"
+							}
+						]
+					}
+				]
+			}
+		},
+		{
+			"files": ["src/common/**"],
+			"rules": {
+				"no-restricted-imports": [
+					"error",
+					{
+						"patterns": [
+							{
+								"group": ["**/background/**", "**/content/**"],
+								"message": "Modules within /src/content can't import from /src/background or /src/content"
+							}
+						]
+					}
+				]
+			}
+		}
+	]
+}

@@ -1,0 +1,691 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6341EEDE2CB1456E00E5E710 /* whatsNew.e79f552b.css in Resources */ = {isa = PBXBuildFile; fileRef = 6341EEDD2CB1456E00E5E710 /* whatsNew.e79f552b.css */; };
+		6341EEDF2CB1456E00E5E710 /* icon.f5383140.svg in Resources */ = {isa = PBXBuildFile; fileRef = 6341EED02CB1456E00E5E710 /* icon.f5383140.svg */; };
+		6341EEE02CB1456E00E5E710 /* settings.fce8ac3b.css in Resources */ = {isa = PBXBuildFile; fileRef = 6341EED92CB1456E00E5E710 /* settings.fce8ac3b.css */; };
+		6341EEE12CB1456E00E5E710 /* whatsNew.0b415932.html in Resources */ = {isa = PBXBuildFile; fileRef = 6341EEDC2CB1456E00E5E710 /* whatsNew.0b415932.html */; };
+		6341EEE22CB1456E00E5E710 /* icon.d20d9b97.svg in Resources */ = {isa = PBXBuildFile; fileRef = 6341EECF2CB1456E00E5E710 /* icon.d20d9b97.svg */; };
+		6341EEE32CB1456E00E5E710 /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 6341EED32CB1456E00E5E710 /* manifest.json */; };
+		6341EEE42CB1456E00E5E710 /* tippy.e52cbc8f.css in Resources */ = {isa = PBXBuildFile; fileRef = 6341EEDB2CB1456E00E5E710 /* tippy.e52cbc8f.css */; };
+		6341EEE52CB1456E00E5E710 /* content.b723d995.css in Resources */ = {isa = PBXBuildFile; fileRef = 6341EECC2CB1456E00E5E710 /* content.b723d995.css */; };
+		6341EEE62CB1456E00E5E710 /* content.d5600b6a.js in Resources */ = {isa = PBXBuildFile; fileRef = 6341EECD2CB1456E00E5E710 /* content.d5600b6a.js */; };
+		6341EEE72CB1456E00E5E710 /* settings.runtime.8301a841.js in Resources */ = {isa = PBXBuildFile; fileRef = 6341EEDA2CB1456E00E5E710 /* settings.runtime.8301a841.js */; };
+		6341EEE82CB1456E00E5E710 /* offscreen.c67d5c05.html in Resources */ = {isa = PBXBuildFile; fileRef = 6341EED52CB1456E00E5E710 /* offscreen.c67d5c05.html */; };
+		6341EEE92CB1456E00E5E710 /* offscreen.7cb32de6.js in Resources */ = {isa = PBXBuildFile; fileRef = 6341EED42CB1456E00E5E710 /* offscreen.7cb32de6.js */; };
+		6341EEEA2CB1456E00E5E710 /* background.runtime.45ec5fa6.js in Resources */ = {isa = PBXBuildFile; fileRef = 6341EECB2CB1456E00E5E710 /* background.runtime.45ec5fa6.js */; };
+		6341EEEB2CB1456E00E5E710 /* settings.a2733222.html in Resources */ = {isa = PBXBuildFile; fileRef = 6341EED72CB1456E00E5E710 /* settings.a2733222.html */; };
+		6341EEEC2CB1456E00E5E710 /* icon48.ace12d5e.png in Resources */ = {isa = PBXBuildFile; fileRef = 6341EED12CB1456E00E5E710 /* icon48.ace12d5e.png */; };
+		6341EEED2CB1456E00E5E710 /* settings.af26f380.js in Resources */ = {isa = PBXBuildFile; fileRef = 6341EED82CB1456E00E5E710 /* settings.af26f380.js */; };
+		6341EEEE2CB1456E00E5E710 /* icon-keyboard-clicking48.ac857c64.png in Resources */ = {isa = PBXBuildFile; fileRef = 6341EECE2CB1456E00E5E710 /* icon-keyboard-clicking48.ac857c64.png */; };
+		6341EEEF2CB1456E00E5E710 /* background.ec971b02.js in Resources */ = {isa = PBXBuildFile; fileRef = 6341EECA2CB1456E00E5E710 /* background.ec971b02.js */; };
+		6341EEF02CB1456E00E5E710 /* onboarding.b6199567.html in Resources */ = {isa = PBXBuildFile; fileRef = 6341EED62CB1456E00E5E710 /* onboarding.b6199567.html */; };
+		6341EEF12CB1456E00E5E710 /* icon128.8b6ee0ac.png in Resources */ = {isa = PBXBuildFile; fileRef = 6341EED22CB1456E00E5E710 /* icon128.8b6ee0ac.png */; };
+		E17BC8F8285E2315007EB9C6 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BC8F7285E2315007EB9C6 /* Application.swift */; };
+		E1AEB977284D1D7800154974 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AEB976284D1D7800154974 /* AppDelegate.swift */; };
+		E1AEB97A284D1D7800154974 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1AEB978284D1D7800154974 /* Main.storyboard */; };
+		E1AEB98C284D1D7800154974 /* Rango for Safari Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = E1AEB98B284D1D7800154974 /* Rango for Safari Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		E1AEB993284D1D7800154974 /* Main.html in Resources */ = {isa = PBXBuildFile; fileRef = E1AEB955284D1D7700154974 /* Main.html */; };
+		E1AEB995284D1D7800154974 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = E1AEB957284D1D7700154974 /* Icon.png */; };
+		E1AEB997284D1D7800154974 /* Style.css in Resources */ = {isa = PBXBuildFile; fileRef = E1AEB958284D1D7700154974 /* Style.css */; };
+		E1AEB999284D1D7800154974 /* Script.js in Resources */ = {isa = PBXBuildFile; fileRef = E1AEB959284D1D7700154974 /* Script.js */; };
+		E1AEB99B284D1D7800154974 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AEB95A284D1D7700154974 /* ViewController.swift */; };
+		E1AEB99D284D1D7800154974 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1AEB95B284D1D7800154974 /* Assets.xcassets */; };
+		E1AEB99F284D1D7800154974 /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AEB95D284D1D7800154974 /* SafariWebExtensionHandler.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E1AEB98D284D1D7800154974 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E1AEB94F284D1D7700154974 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E1AEB98A284D1D7800154974;
+			remoteInfo = "Rango Extension (macOS)";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E1AEB9AC284D1D7800154974 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				E1AEB98C284D1D7800154974 /* Rango for Safari Extension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		6341EECA2CB1456E00E5E710 /* background.ec971b02.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = background.ec971b02.js; sourceTree = "<group>"; };
+		6341EECB2CB1456E00E5E710 /* background.runtime.45ec5fa6.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = background.runtime.45ec5fa6.js; sourceTree = "<group>"; };
+		6341EECC2CB1456E00E5E710 /* content.b723d995.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = content.b723d995.css; sourceTree = "<group>"; };
+		6341EECD2CB1456E00E5E710 /* content.d5600b6a.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = content.d5600b6a.js; sourceTree = "<group>"; };
+		6341EECE2CB1456E00E5E710 /* icon-keyboard-clicking48.ac857c64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-keyboard-clicking48.ac857c64.png"; sourceTree = "<group>"; };
+		6341EECF2CB1456E00E5E710 /* icon.d20d9b97.svg */ = {isa = PBXFileReference; lastKnownFileType = text; path = icon.d20d9b97.svg; sourceTree = "<group>"; };
+		6341EED02CB1456E00E5E710 /* icon.f5383140.svg */ = {isa = PBXFileReference; lastKnownFileType = text; path = icon.f5383140.svg; sourceTree = "<group>"; };
+		6341EED12CB1456E00E5E710 /* icon48.ace12d5e.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon48.ace12d5e.png; sourceTree = "<group>"; };
+		6341EED22CB1456E00E5E710 /* icon128.8b6ee0ac.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon128.8b6ee0ac.png; sourceTree = "<group>"; };
+		6341EED32CB1456E00E5E710 /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = manifest.json; sourceTree = "<group>"; };
+		6341EED42CB1456E00E5E710 /* offscreen.7cb32de6.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = offscreen.7cb32de6.js; sourceTree = "<group>"; };
+		6341EED52CB1456E00E5E710 /* offscreen.c67d5c05.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = offscreen.c67d5c05.html; sourceTree = "<group>"; };
+		6341EED62CB1456E00E5E710 /* onboarding.b6199567.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = onboarding.b6199567.html; sourceTree = "<group>"; };
+		6341EED72CB1456E00E5E710 /* settings.a2733222.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = settings.a2733222.html; sourceTree = "<group>"; };
+		6341EED82CB1456E00E5E710 /* settings.af26f380.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = settings.af26f380.js; sourceTree = "<group>"; };
+		6341EED92CB1456E00E5E710 /* settings.fce8ac3b.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = settings.fce8ac3b.css; sourceTree = "<group>"; };
+		6341EEDA2CB1456E00E5E710 /* settings.runtime.8301a841.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = settings.runtime.8301a841.js; sourceTree = "<group>"; };
+		6341EEDB2CB1456E00E5E710 /* tippy.e52cbc8f.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = tippy.e52cbc8f.css; sourceTree = "<group>"; };
+		6341EEDC2CB1456E00E5E710 /* whatsNew.0b415932.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = whatsNew.0b415932.html; sourceTree = "<group>"; };
+		6341EEDD2CB1456E00E5E710 /* whatsNew.e79f552b.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = whatsNew.e79f552b.css; sourceTree = "<group>"; };
+		E17BC8F7285E2315007EB9C6 /* Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
+		E18784B1298EEFB50028A679 /* UserSpecific.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = UserSpecific.xcconfig; sourceTree = "<group>"; };
+		E18784B2298EEFB50028A679 /* RangoVersion.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = RangoVersion.xcconfig; sourceTree = "<group>"; };
+		E1AEB956284D1D7700154974 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = ../Base.lproj/Main.html; sourceTree = "<group>"; };
+		E1AEB957284D1D7700154974 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		E1AEB958284D1D7700154974 /* Style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = Style.css; sourceTree = "<group>"; };
+		E1AEB959284D1D7700154974 /* Script.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Script.js; sourceTree = "<group>"; };
+		E1AEB95A284D1D7700154974 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		E1AEB95B284D1D7800154974 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E1AEB95D284D1D7800154974 /* SafariWebExtensionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebExtensionHandler.swift; sourceTree = "<group>"; };
+		E1AEB974284D1D7800154974 /* Rango for Safari.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Rango for Safari.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E1AEB976284D1D7800154974 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		E1AEB979284D1D7800154974 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		E1AEB97B284D1D7800154974 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E1AEB97C284D1D7800154974 /* Rango.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Rango.entitlements; sourceTree = "<group>"; };
+		E1AEB98B284D1D7800154974 /* Rango for Safari Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Rango for Safari Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E1AEB990284D1D7800154974 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E1AEB991284D1D7800154974 /* Rango.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Rango.entitlements; sourceTree = "<group>"; };
+		E1E0B327287A38DD00A5B751 /* UpdateRangoVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateRangoVersion.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E1AEB971284D1D7800154974 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E1AEB988284D1D7800154974 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E181855D287A150700771324 /* Build */ = {
+			isa = PBXGroup;
+			children = (
+				E18784B2298EEFB50028A679 /* RangoVersion.xcconfig */,
+				E18784B1298EEFB50028A679 /* UserSpecific.xcconfig */,
+				E1E0B327287A38DD00A5B751 /* UpdateRangoVersion.swift */,
+			);
+			path = Build;
+			sourceTree = "<group>";
+		};
+		E18A7D4A298ED9B7000801AD /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				6341EECA2CB1456E00E5E710 /* background.ec971b02.js */,
+				6341EECB2CB1456E00E5E710 /* background.runtime.45ec5fa6.js */,
+				6341EECC2CB1456E00E5E710 /* content.b723d995.css */,
+				6341EECD2CB1456E00E5E710 /* content.d5600b6a.js */,
+				6341EECE2CB1456E00E5E710 /* icon-keyboard-clicking48.ac857c64.png */,
+				6341EECF2CB1456E00E5E710 /* icon.d20d9b97.svg */,
+				6341EED02CB1456E00E5E710 /* icon.f5383140.svg */,
+				6341EED12CB1456E00E5E710 /* icon48.ace12d5e.png */,
+				6341EED22CB1456E00E5E710 /* icon128.8b6ee0ac.png */,
+				6341EED32CB1456E00E5E710 /* manifest.json */,
+				6341EED42CB1456E00E5E710 /* offscreen.7cb32de6.js */,
+				6341EED52CB1456E00E5E710 /* offscreen.c67d5c05.html */,
+				6341EED62CB1456E00E5E710 /* onboarding.b6199567.html */,
+				6341EED72CB1456E00E5E710 /* settings.a2733222.html */,
+				6341EED82CB1456E00E5E710 /* settings.af26f380.js */,
+				6341EED92CB1456E00E5E710 /* settings.fce8ac3b.css */,
+				6341EEDA2CB1456E00E5E710 /* settings.runtime.8301a841.js */,
+				6341EEDB2CB1456E00E5E710 /* tippy.e52cbc8f.css */,
+				6341EEDC2CB1456E00E5E710 /* whatsNew.0b415932.html */,
+				6341EEDD2CB1456E00E5E710 /* whatsNew.e79f552b.css */,
+			);
+			name = Resources;
+			path = "../../dist-mv2-safari";
+			sourceTree = "<group>";
+		};
+		E1AEB94E284D1D7700154974 = {
+			isa = PBXGroup;
+			children = (
+				E181855D287A150700771324 /* Build */,
+				E1AEB953284D1D7700154974 /* Shared (App) */,
+				E1AEB95C284D1D7800154974 /* Shared (Extension) */,
+				E1AEB975284D1D7800154974 /* macOS (App) */,
+				E1AEB98F284D1D7800154974 /* macOS (Extension) */,
+				E1AEB963284D1D7800154974 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E1AEB953284D1D7700154974 /* Shared (App) */ = {
+			isa = PBXGroup;
+			children = (
+				E1AEB95A284D1D7700154974 /* ViewController.swift */,
+				E17BC8F7285E2315007EB9C6 /* Application.swift */,
+				E1AEB95B284D1D7800154974 /* Assets.xcassets */,
+				E1AEB954284D1D7700154974 /* Resources */,
+			);
+			path = "Shared (App)";
+			sourceTree = "<group>";
+		};
+		E1AEB954284D1D7700154974 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				E1AEB955284D1D7700154974 /* Main.html */,
+				E1AEB957284D1D7700154974 /* Icon.png */,
+				E1AEB958284D1D7700154974 /* Style.css */,
+				E1AEB959284D1D7700154974 /* Script.js */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		E1AEB95C284D1D7800154974 /* Shared (Extension) */ = {
+			isa = PBXGroup;
+			children = (
+				E18A7D4A298ED9B7000801AD /* Resources */,
+				E1AEB95D284D1D7800154974 /* SafariWebExtensionHandler.swift */,
+			);
+			path = "Shared (Extension)";
+			sourceTree = "<group>";
+		};
+		E1AEB963284D1D7800154974 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E1AEB974284D1D7800154974 /* Rango for Safari.app */,
+				E1AEB98B284D1D7800154974 /* Rango for Safari Extension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E1AEB975284D1D7800154974 /* macOS (App) */ = {
+			isa = PBXGroup;
+			children = (
+				E1AEB976284D1D7800154974 /* AppDelegate.swift */,
+				E1AEB978284D1D7800154974 /* Main.storyboard */,
+				E1AEB97B284D1D7800154974 /* Info.plist */,
+				E1AEB97C284D1D7800154974 /* Rango.entitlements */,
+			);
+			path = "macOS (App)";
+			sourceTree = "<group>";
+		};
+		E1AEB98F284D1D7800154974 /* macOS (Extension) */ = {
+			isa = PBXGroup;
+			children = (
+				E1AEB990284D1D7800154974 /* Info.plist */,
+				E1AEB991284D1D7800154974 /* Rango.entitlements */,
+			);
+			path = "macOS (Extension)";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E1AEB973284D1D7800154974 /* Rango for Safari (macOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E1AEB9AD284D1D7800154974 /* Build configuration list for PBXNativeTarget "Rango for Safari (macOS)" */;
+			buildPhases = (
+				E1AEB970284D1D7800154974 /* Sources */,
+				E1AEB971284D1D7800154974 /* Frameworks */,
+				E1AEB972284D1D7800154974 /* Resources */,
+				E1AEB9AC284D1D7800154974 /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E1AEB98E284D1D7800154974 /* PBXTargetDependency */,
+			);
+			name = "Rango for Safari (macOS)";
+			productName = "Rango (macOS)";
+			productReference = E1AEB974284D1D7800154974 /* Rango for Safari.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E1AEB98A284D1D7800154974 /* Rango for Safari Extension (macOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E1AEB9A9284D1D7800154974 /* Build configuration list for PBXNativeTarget "Rango for Safari Extension (macOS)" */;
+			buildPhases = (
+				E1AEB987284D1D7800154974 /* Sources */,
+				E1AEB988284D1D7800154974 /* Frameworks */,
+				E1AEB989284D1D7800154974 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Rango for Safari Extension (macOS)";
+			productName = "Rango Extension (macOS)";
+			productReference = E1AEB98B284D1D7800154974 /* Rango for Safari Extension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E1AEB94F284D1D7700154974 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1340;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					E1AEB973284D1D7800154974 = {
+						CreatedOnToolsVersion = 13.4.1;
+					};
+					E1AEB98A284D1D7800154974 = {
+						CreatedOnToolsVersion = 13.4.1;
+					};
+				};
+			};
+			buildConfigurationList = E1AEB952284D1D7700154974 /* Build configuration list for PBXProject "Rango for Safari" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = E1AEB94E284D1D7700154974;
+			productRefGroup = E1AEB963284D1D7800154974 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E1AEB973284D1D7800154974 /* Rango for Safari (macOS) */,
+				E1AEB98A284D1D7800154974 /* Rango for Safari Extension (macOS) */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E1AEB972284D1D7800154974 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E1AEB995284D1D7800154974 /* Icon.png in Resources */,
+				E1AEB997284D1D7800154974 /* Style.css in Resources */,
+				E1AEB97A284D1D7800154974 /* Main.storyboard in Resources */,
+				E1AEB999284D1D7800154974 /* Script.js in Resources */,
+				E1AEB99D284D1D7800154974 /* Assets.xcassets in Resources */,
+				E1AEB993284D1D7800154974 /* Main.html in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E1AEB989284D1D7800154974 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6341EEDE2CB1456E00E5E710 /* whatsNew.e79f552b.css in Resources */,
+				6341EEDF2CB1456E00E5E710 /* icon.f5383140.svg in Resources */,
+				6341EEE02CB1456E00E5E710 /* settings.fce8ac3b.css in Resources */,
+				6341EEE12CB1456E00E5E710 /* whatsNew.0b415932.html in Resources */,
+				6341EEE22CB1456E00E5E710 /* icon.d20d9b97.svg in Resources */,
+				6341EEE32CB1456E00E5E710 /* manifest.json in Resources */,
+				6341EEE42CB1456E00E5E710 /* tippy.e52cbc8f.css in Resources */,
+				6341EEE52CB1456E00E5E710 /* content.b723d995.css in Resources */,
+				6341EEE62CB1456E00E5E710 /* content.d5600b6a.js in Resources */,
+				6341EEE72CB1456E00E5E710 /* settings.runtime.8301a841.js in Resources */,
+				6341EEE82CB1456E00E5E710 /* offscreen.c67d5c05.html in Resources */,
+				6341EEE92CB1456E00E5E710 /* offscreen.7cb32de6.js in Resources */,
+				6341EEEA2CB1456E00E5E710 /* background.runtime.45ec5fa6.js in Resources */,
+				6341EEEB2CB1456E00E5E710 /* settings.a2733222.html in Resources */,
+				6341EEEC2CB1456E00E5E710 /* icon48.ace12d5e.png in Resources */,
+				6341EEED2CB1456E00E5E710 /* settings.af26f380.js in Resources */,
+				6341EEEE2CB1456E00E5E710 /* icon-keyboard-clicking48.ac857c64.png in Resources */,
+				6341EEEF2CB1456E00E5E710 /* background.ec971b02.js in Resources */,
+				6341EEF02CB1456E00E5E710 /* onboarding.b6199567.html in Resources */,
+				6341EEF12CB1456E00E5E710 /* icon128.8b6ee0ac.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E1AEB970284D1D7800154974 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E17BC8F8285E2315007EB9C6 /* Application.swift in Sources */,
+				E1AEB99B284D1D7800154974 /* ViewController.swift in Sources */,
+				E1AEB977284D1D7800154974 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E1AEB987284D1D7800154974 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E1AEB99F284D1D7800154974 /* SafariWebExtensionHandler.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E1AEB98E284D1D7800154974 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E1AEB98A284D1D7800154974 /* Rango for Safari Extension (macOS) */;
+			targetProxy = E1AEB98D284D1D7800154974 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		E1AEB955284D1D7700154974 /* Main.html */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E1AEB956284D1D7700154974 /* Base */,
+			);
+			name = Main.html;
+			sourceTree = "<group>";
+		};
+		E1AEB978284D1D7800154974 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E1AEB979284D1D7800154974 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		E1AEB9A0284D1D7800154974 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E18784B1298EEFB50028A679 /* UserSpecific.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Debug;
+		};
+		E1AEB9A1284D1D7800154974 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E18784B1298EEFB50028A679 /* UserSpecific.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
+		E1AEB9AA284D1D7800154974 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "macOS (Extension)/Rango.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 12;
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "macOS (Extension)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Rango Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "© 2023 David Martinez Tejada";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "$(RANGO_BUNDLE_ID_BASE).Rango.extension";
+				PRODUCT_NAME = "Rango for Safari Extension";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		E1AEB9AB284D1D7800154974 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "macOS (Extension)/Rango.entitlements";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 12;
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "macOS (Extension)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Rango Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "© 2023 David Martinez Tejada";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "$(RANGO_BUNDLE_ID_BASE).Rango.extension";
+				PRODUCT_NAME = "Rango for Safari Extension";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		E1AEB9AE284D1D7800154974 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "macOS (App)/Rango.entitlements";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 12;
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "macOS (App)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Rango for Safari";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = Rango_for_Safari.Application;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+					"-framework",
+					WebKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "$(RANGO_BUNDLE_ID_BASE).Rango";
+				PRODUCT_NAME = "Rango for Safari";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		E1AEB9AF284D1D7800154974 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "macOS (App)/Rango.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 12;
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "macOS (App)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Rango for Safari";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = Rango_for_Safari.Application;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+					"-framework",
+					WebKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "$(RANGO_BUNDLE_ID_BASE).Rango";
+				PRODUCT_NAME = "Rango for Safari";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E1AEB952284D1D7700154974 /* Build configuration list for PBXProject "Rango for Safari" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E1AEB9A0284D1D7800154974 /* Debug */,
+				E1AEB9A1284D1D7800154974 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E1AEB9A9284D1D7800154974 /* Build configuration list for PBXNativeTarget "Rango for Safari Extension (macOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E1AEB9AA284D1D7800154974 /* Debug */,
+				E1AEB9AB284D1D7800154974 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E1AEB9AD284D1D7800154974 /* Build configuration list for PBXNativeTarget "Rango for Safari (macOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E1AEB9AE284D1D7800154974 /* Debug */,
+				E1AEB9AF284D1D7800154974 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E1AEB94F284D1D7700154974 /* Project object */;
+}

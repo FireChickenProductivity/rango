@@ -1,0 +1,91 @@
+.Toggle label {
+	display: flex;
+	justify-content: space-between;
+}
+
+.Toggle.disabled label {
+	color: var(--neutral-500);
+}
+
+.Toggle button {
+	--width: 2.5rem;
+	--height: calc(var(--width) / 2);
+	--border-width: 2px;
+
+	display: inline-block;
+	position: relative;
+	width: var(--width);
+	height: var(--height);
+	background-color: var(--slate-300);
+	color: var(--slate-300);
+	border: var(--border-width) solid;
+	border-radius: var(--height);
+	transition: all 400ms ease-in-out;
+}
+
+.Toggle button[aria-pressed="true"] {
+	background-color: var(--green-500);
+	color: var(--green-500);
+}
+
+.Toggle.disabled button[aria-pressed="true"] {
+	background-color: var(--slate-300);
+	color: var(--slate-300);
+}
+
+.Toggle:focus-within {
+	outline: 2px solid var(--blue-600);
+	border-radius: 0.3em;
+	padding-left: 0.3em;
+	margin-left: -0.3em;
+	padding-right: 0.3em;
+	margin-right: -0.3em;
+}
+
+.Toggle button:focus {
+	outline: none;
+}
+
+.Toggle button::after {
+	content: "\2715";
+	display: grid;
+	place-items: center;
+	font-size: 0.75em;
+	color: var(--color-slate-300);
+	width: calc(var(--height) - var(--border-width) * 2);
+	height: calc(var(--height) - var(--border-width) * 2);
+	border-radius: 50%;
+	background-color: white;
+	position: absolute;
+	top: 0;
+	left: 0;
+	transition: transform 0.4s;
+}
+
+.Toggle button[aria-pressed="true"]::after {
+	content: "\2713";
+	transform: translateX(var(--height));
+}
+
+@media screen and (forced-colors: active) {
+	.Toggle button,
+	.Toggle button::after {
+		color: ButtonText;
+	}
+
+	.Toggle button {
+		border-color: ButtonText;
+	}
+
+	.Toggle button[aria-pressed="true"] {
+		background-color: ButtonText;
+	}
+
+	.Toggle button[aria-pressed="false"] {
+		background-color: Canvas;
+	}
+
+	.Toggle.disabled button {
+		--border-width: 1px;
+	}
+}

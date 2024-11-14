@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>What's new - Rango</title>
+		<link rel="stylesheet" href="../styles.css" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			rel="shortcut icon"
+			href="../../assets/icon.svg"
+			type="image/x-icon"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Quicksand:wght@300;400;500;600;700&display=swap"
+			rel="stylesheet"
+		/>
+	</head>
+	<body>
+		<div class="container">
+			<h1>Rango has been updated to version 0.7.0</h1>
+			<section>
+				<h2>What's new?</h2>
+				<p>
+					Hello! I hope you are doing well. Here I bring you a new Rango update
+					to make your web browsing life a bit easier. I hope you appreciate it.
+					This release brings us the ability to target elements by their text
+					content using fuzzy search. This functionality can also be used for
+					scripting. We now also have the ability to edit custom selectors from
+					the settings page. Besides that this release brings more improvements
+					and bug fixes.
+				</p>
+			</section>
+			<section>
+				<h2>Update rango-talon</h2>
+				<p>
+					You need to update rango-talon to be able to use the new commands.
+				</p>
+			</section>
+
+			<section>
+				<h2>Become a sponsor</h2>
+				<p>
+					There is still a lot of work to do, features to add and bugs to fix. I
+					would like to be able to continue working on Rango to bring you all
+					those goodies. To be able to do that I need your support. If Rango
+					makes your life easier when navigating the web and has become an
+					essential tool for you, please consider becoming a sponsor. You just
+					have to click this big button below or use the command
+					<code>rango open sponsor</code>.
+				</p>
+				<a
+					href="https://github.com/sponsors/david-tejada"
+					target="_blank"
+					class="cta"
+					>Become a sponsor</a
+				>
+			</section>
+
+			<section>
+				<h2>Changelog for v0.7.0</h2>
+
+				<h3>Added</h3>
+				<ul>
+					<li>Add setting to always compute hintables.</li>
+					<li>
+						Add command for performing action on an element fuzzy searching its
+						text.
+					</li>
+					<li>
+						Add ability to customize custom selectors from the settings page.
+					</li>
+					<li>Add setting for notifying or not when toggling hints.</li>
+					<li>Add command for hiding a specific hint.</li>
+					<li>Add command to save a reference to the active element.</li>
+				</ul>
+
+				<h3>Fixed</h3>
+				<ul>
+					<li>
+						Fix issue with elements not triggering intersection when within
+						<code>positioned: fixed</code> element.
+					</li>
+					<li>
+						Fix hints being read out when using Microsoft Edge Read Aloud
+						function.
+					</li>
+					<li>Make hints and keys to exclude settings case insensitive.</li>
+					<li>
+						Fix crown not taking account sticky headers with smooth scrolling.
+					</li>
+					<li>Fix Discord's internal links opening in a new tab.</li>
+					<li>Fix <code>go input</code> not working when the hints are off.</li>
+					<li>
+						Fix slowness on startup caused by having to reload discarded tabs
+						for refreshing tab markers.
+					</li>
+				</ul>
+
+				<h3>Changed</h3>
+				<ul>
+					<li>Allow smaller hint font size.</li>
+				</ul>
+			</section>
+		</div>
+	</body>
+</html>

@@ -1,11 +1,5 @@
 import { assertDefined } from "../../typings/TypingUtils";
-import { getClickableType } from "./getClickableType";
-
-export function hasTextNodesChildren(element: Element) {
-	return [...element.childNodes].some(
-		(node) => node.nodeType === 3 && /\S/.test(node.textContent!)
-	);
-}
+import { getWrapperForElement } from "../wrappers/wrappers";
 
 // Inside some elements you can't get the coordinates of a text node with Range and
 // instead you get the characters offset
@@ -19,23 +13,11 @@ function rangeGivesCoordinates(textNode: Text): boolean {
 	return true;
 }
 
-export function getTextNodeRect(textNode: Text): DOMRect {
+function getTextNodeRect(textNode: Text): DOMRect {
 	const range = document.createRange();
 	range.setStart(textNode, 0);
 	range.setEnd(textNode, textNode.length);
 	return range.getBoundingClientRect();
-}
-
-export function getFirstCharacterRect(textNode: Text): DOMRect | undefined {
-	if (textNode) {
-		const range = document.createRange();
-		range.setStart(textNode, 0);
-		range.setEnd(textNode, 1);
-		const rect = range.getBoundingClientRect();
-		return rect.width === 0 && rect.height === 0 ? undefined : rect;
-	}
-
-	return undefined;
 }
 
 export function getFirstTextNodeDescendant(element: Node): Text | undefined {
@@ -63,12 +45,36 @@ export function getFirstTextNodeDescendant(element: Node): Text | undefined {
 			// in the YouTube search suggestions every item is an element with role="option" and inside
 			// those that represent previous searches a link element to remove said search,
 			// positioned at the right end
-			if (getClickableType(childNode)) {
+			if (getWrapperForElement(childNode)?.isHintable) {
 				continue;
 			}
 
 			return getFirstTextNodeDescendant(childNode);
 		}
+	}
+
+	return undefined;
+}
+
+export function findLastTextNode(element: Node): Text | undefined {
+	if (element instanceof Text) return element;
+
+	for (let i = element.childNodes.length - 1; i >= 0; i--) {
+		const lastTextNode = findLastTextNode(element.childNodes[i]!);
+
+		if (lastTextNode) return lastTextNode;
+	}
+
+	return undefined;
+}
+
+export function findFirstTextNode(element: Node): Text | undefined {
+	if (element instanceof Text) return element;
+
+	for (const child of element.childNodes) {
+		const firstTextNode = findFirstTextNode(child);
+
+		if (firstTextNode) return firstTextNode;
 	}
 
 	return undefined;

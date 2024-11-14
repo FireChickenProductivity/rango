@@ -1,146 +1,288 @@
 import browser from "webextension-polyfill";
-import { HintsToggle } from "../../typings/RangoOptions";
-import { RangoAction } from "../../typings/RangoAction";
-import { getStored, setStored } from "../../lib/getStored";
-import { sendRequestToAllTabs } from "../messaging/sendRequestToAllTabs";
-import { getCurrentTab, getCurrentTabId } from "../utils/getCurrentTab";
-import { notify } from "../utils/notify";
-import { toggleHints } from "../actions/toggleHints";
+import { retrieve, store } from "../../common/storage";
+import { promiseWrap } from "../../lib/promiseWrap";
+import { type RangoAction } from "../../typings/RangoAction";
+import { type TalonAction } from "../../typings/RequestFromTalon";
+import { activateTab } from "../actions/activateTab";
+import { closeTab } from "../actions/closeTab";
 import { closeTabsInWindow } from "../actions/closeTabsInWindow";
-import { toggleKeyboardClicking } from "../actions/toggleKeyboardClicking";
+import {
+	copyLocationProperty,
+	copyMarkdownUrl,
+	getBareTitle,
+} from "../actions/copyTabInfo";
+import { focusOrCreateTabByUrl } from "../actions/focusOrCreateTabByUrl";
 import { focusPreviousTab } from "../actions/focusPreviousTab";
+import {
+	focusNextAudibleTab,
+	focusNextMutedTab,
+	focusNextTabWithSound,
+	focusTabLastSounded,
+} from "../actions/focusTabBySound";
+import { cycleTabsByText, focusTabByText } from "../actions/focusTabByText";
+import {
+	muteAllTabsWithSound,
+	muteNextTabWithSound,
+	muteTab,
+	unmuteAllMutedTabs,
+	unmuteNextMutedTab,
+} from "../actions/muteTabs";
+import { toggleHintsGlobal, updateHintsToggle } from "../actions/toggleHints";
+import { toggleKeyboardClicking } from "../actions/toggleKeyboardClicking";
+import { toggleTabMarkers } from "../actions/toggleTabMarkers";
+import { sendRequestToContent } from "../messaging/sendRequestToContent";
+import { refreshTabMarkers } from "../misc/tabMarkers";
+import { getCurrentTab } from "../utils/getCurrentTab";
 
 export async function runBackgroundCommand(
 	command: RangoAction
-): Promise<string | undefined> {
-	const currentTab = await getCurrentTab();
-	const currentTabId = await getCurrentTabId();
+): Promise<string | TalonAction[] | undefined> {
+	const [currentTab] = await promiseWrap(getCurrentTab());
+	const currentTabId = currentTab?.id;
 
 	switch (command.type) {
+		case "activateTab": {
+			await activateTab(command.target);
+			break;
+		}
+
+		case "closeTab": {
+			await closeTab(command.target);
+			break;
+		}
+
+		case "historyGoBack": {
+			try {
+				await sendRequestToContent(command);
+			} catch {
+				await browser.tabs.goBack();
+			}
+
+			break;
+		}
+
+		case "historyGoForward": {
+			try {
+				await sendRequestToContent(command);
+			} catch {
+				await browser.tabs.goForward();
+			}
+
+			break;
+		}
+
 		case "toggleHints": {
-			const hintsToggle = (await getStored("hintsToggle")) as HintsToggle;
-			hintsToggle.global = !hintsToggle.global;
-			await setStored({ hintsToggle });
-			await sendRequestToAllTabs({ type: "fullHintsUpdate" });
+			await toggleHintsGlobal();
 			break;
 		}
 
 		case "enableHints": {
-			await toggleHints(command.arg, true);
-
+			await updateHintsToggle(command.arg, true);
 			break;
 		}
 
-		case "disableHints":
-			await toggleHints(command.arg, false);
-
+		case "disableHints": {
+			await updateHintsToggle(command.arg, false);
 			break;
+		}
 
-		case "resetToggleLevel":
-			await toggleHints(command.arg);
-
+		case "resetToggleLevel": {
+			await updateHintsToggle(command.arg);
 			break;
+		}
 
-		case "toggleKeyboardClicking":
+		case "toggleTabMarkers": {
+			await toggleTabMarkers();
+			break;
+		}
+
+		case "toggleKeyboardClicking": {
 			await toggleKeyboardClicking();
 			break;
-
-		case "includeSingleLetterHints":
-			await setStored({ includeSingleLetterHints: true });
-			await sendRequestToAllTabs({ type: "fullHintsUpdate" });
-			break;
-
-		case "excludeSingleLetterHints":
-			await setStored({ includeSingleLetterHints: false });
-			await sendRequestToAllTabs({ type: "fullHintsUpdate" });
-			break;
+		}
 
 		case "increaseHintSize": {
-			const hintFontSize = (await getStored("hintFontSize")) as number;
-			await setStored({ hintFontSize: hintFontSize + 1 });
-			await sendRequestToAllTabs({ type: "fullHintsUpdate" });
+			const hintFontSize = await retrieve("hintFontSize");
+			await store("hintFontSize", hintFontSize + 1);
 			break;
 		}
 
 		case "decreaseHintSize": {
-			const hintFontSize = (await getStored("hintFontSize")) as number;
-			await setStored({ hintFontSize: hintFontSize - 1 });
-			await sendRequestToAllTabs({ type: "fullHintsUpdate" });
+			const hintFontSize = await retrieve("hintFontSize");
+			await store("hintFontSize", hintFontSize - 1);
 			break;
 		}
 
-		case "setHintStyle":
-			await setStored({ hintStyle: command.arg });
-			await sendRequestToAllTabs({ type: "fullHintsUpdate" });
-			break;
-
-		case "setHintWeight":
-			await setStored({ hintWeight: command.arg });
-			await sendRequestToAllTabs({ type: "fullHintsUpdate" });
-			break;
-
-		case "enableUrlInTitle":
-			await setStored({ urlInTitle: true });
-			notify("Url in title enabled", "Refresh the page to update the title");
-			break;
-
-		case "disableUrlInTitle":
-			await setStored({ urlInTitle: false });
-			notify("Url in title disabled", "Refresh the page to update the title");
-			break;
-
-		case "closeOtherTabsInWindow":
+		case "closeOtherTabsInWindow": {
 			await closeTabsInWindow("other");
 			break;
+		}
 
-		case "closeTabsToTheLeftInWindow":
+		case "closeTabsToTheLeftInWindow": {
 			await closeTabsInWindow("left");
 			break;
+		}
 
-		case "closeTabsToTheRightInWindow":
+		case "closeTabsToTheRightInWindow": {
 			await closeTabsInWindow("right");
 			break;
+		}
 
-		case "closeTabsLeftEndInWindow":
+		case "closeTabsLeftEndInWindow": {
 			await closeTabsInWindow("leftEnd", command.arg);
 			break;
+		}
 
-		case "closeTabsRightEndInWindow":
+		case "closeTabsRightEndInWindow": {
 			await closeTabsInWindow("rightEnd", command.arg);
 			break;
+		}
 
-		case "closePreviousTabsInWindow":
+		case "closePreviousTabsInWindow": {
 			await closeTabsInWindow("previous", command.arg);
 			break;
+		}
 
-		case "closeNextTabsInWindow":
+		case "closeNextTabsInWindow": {
 			await closeTabsInWindow("next", command.arg);
 			break;
+		}
 
-		case "cloneCurrentTab":
-			await browser.tabs.duplicate(currentTabId);
-
-			break;
-
-		case "moveCurrentTabToNewWindow":
-			await browser.windows.create({ tabId: currentTabId });
-			break;
-
-		case "focusPreviousTab":
-			await focusPreviousTab();
-			break;
-
-		case "copyCurrentTabMarkdownUrl":
-			if (currentTab.url && currentTab.title) {
-				return `[${currentTab.title.replace(` - ${currentTab.url}`, "")}](${
-					currentTab.url
-				})`;
+		case "cloneCurrentTab": {
+			if (currentTabId) {
+				await browser.tabs.duplicate(currentTabId);
 			}
 
 			break;
+		}
 
-		default:
+		case "moveCurrentTabToNewWindow": {
+			await browser.windows.create({ tabId: currentTabId });
 			break;
+		}
+
+		case "focusPreviousTab": {
+			await focusPreviousTab();
+			break;
+		}
+
+		case "focusNextTabWithSound": {
+			await focusNextTabWithSound();
+			break;
+		}
+
+		case "focusNextMutedTab": {
+			await focusNextMutedTab();
+			break;
+		}
+
+		case "focusNextAudibleTab": {
+			await focusNextAudibleTab();
+			break;
+		}
+
+		case "focusTabLastSounded": {
+			await focusTabLastSounded();
+			break;
+		}
+
+		case "muteCurrentTab": {
+			await muteTab();
+			break;
+		}
+
+		case "unmuteCurrentTab": {
+			await muteTab(undefined, false);
+			break;
+		}
+
+		case "muteTab": {
+			await muteTab(command.target);
+			break;
+		}
+
+		case "unmuteTab": {
+			await muteTab(command.target, false);
+			break;
+		}
+
+		case "muteNextTabWithSound": {
+			await muteNextTabWithSound();
+			break;
+		}
+
+		case "unmuteNextMutedTab": {
+			await unmuteNextMutedTab();
+			break;
+		}
+
+		case "muteAllTabsWithSound": {
+			await muteAllTabsWithSound();
+			break;
+		}
+
+		case "unmuteAllMutedTabs": {
+			await unmuteAllMutedTabs();
+			break;
+		}
+
+		case "copyLocationProperty": {
+			if (currentTab) {
+				return copyLocationProperty(currentTab, command.arg);
+			}
+
+			break;
+		}
+
+		case "getBareTitle": {
+			if (currentTab) {
+				const title = await getBareTitle(currentTab);
+				return [{ name: "responseValue", value: title }];
+			}
+
+			break;
+		}
+
+		case "copyCurrentTabMarkdownUrl": {
+			if (currentTab) {
+				return copyMarkdownUrl(currentTab);
+			}
+
+			break;
+		}
+
+		case "openSettingsPage": {
+			await browser.runtime.openOptionsPage();
+			break;
+		}
+
+		case "openPageInNewTab": {
+			await browser.tabs.create({ url: command.arg });
+			break;
+		}
+
+		case "refreshTabMarkers": {
+			await refreshTabMarkers();
+			break;
+		}
+
+		case "focusOrCreateTabByUrl": {
+			return focusOrCreateTabByUrl(command.arg);
+		}
+
+		case "focusTabByText": {
+			await focusTabByText(command.arg);
+			break;
+		}
+
+		case "cycleTabsByText": {
+			await cycleTabsByText(command.arg);
+			break;
+		}
+
+		default: {
+			break;
+		}
 	}
 
 	return undefined;

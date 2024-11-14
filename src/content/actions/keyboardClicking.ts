@@ -1,57 +1,29 @@
-import Color from "color";
 import browser from "webextension-polyfill";
-import { assertDefined, isFocusOnClickInput } from "../../typings/TypingUtils";
 import { getHintsInTab } from "../utils/getHintsInTab";
-import { applyInitialStyles } from "../hints/applyInitialStyles";
-import { getIntersectorByHint } from "../intersectors";
+import { getHintedWrappers } from "../wrappers/wrappers";
+import { isEditable, getActiveElement } from "../utils/domUtils";
+import { onSettingChange } from "../settings/settingsManager";
+import { notify } from "../notify/notify";
+import { refresh } from "../wrappers/refresh";
 
 let keysPressedBuffer = "";
 let timeoutId: ReturnType<typeof setTimeout>;
 
 export function markHintsAsKeyboardReachable(letter: string) {
-	const hintElements: NodeListOf<HTMLDivElement> =
-		document.querySelectorAll(".rango-hint");
-	const hintsToHighlight = [...hintElements].filter((hintElement) =>
-		hintElement.textContent?.startsWith(letter)
+	const wrappers = getHintedWrappers().filter((wrapper) =>
+		wrapper.hint?.string?.startsWith(letter)
 	);
-	for (const hintElement of hintsToHighlight) {
-		assertDefined(hintElement.textContent);
-		const intersector = getIntersectorByHint(hintElement.textContent);
-		if (hintElement instanceof HTMLDivElement) {
-			intersector.freezeHintStyle = true;
-			hintElement.style.fontWeight = "bold";
-			hintElement.style.outlineWidth = "2px";
-			hintElement.style.outlineColor = new Color(
-				window.getComputedStyle(hintElement).outlineColor
-			)
-				.alpha(0.7)
-				.string();
-		}
+	for (const wrapper of wrappers) {
+		wrapper?.hint?.keyHighlight();
 	}
 }
 
 export function restoreKeyboardReachableHints() {
-	const hintElements = document.querySelectorAll(".rango-hint");
+	const wrappers = getHintedWrappers();
 
-	for (const hintElement of hintElements) {
-		assertDefined(hintElement.textContent);
-		const intersector = getIntersectorByHint(hintElement.textContent);
-		intersector.freezeHintStyle = false;
-		applyInitialStyles(intersector);
+	for (const wrapper of wrappers) {
+		wrapper.hint?.clearKeyHighlight();
 	}
-}
-
-// eslint-disable-next-line @typescript-eslint/ban-types
-function isTextField(element: EventTarget | null): boolean {
-	if (element && element instanceof HTMLElement) {
-		return (
-			isFocusOnClickInput(element) ||
-			element.tagName === "TEXTAREA" ||
-			element.isContentEditable
-		);
-	}
-
-	return false;
 }
 
 function modifierKeyPressed(event: KeyboardEvent): boolean {
@@ -63,9 +35,9 @@ async function keydownHandler(event: KeyboardEvent) {
 	// in case typing the second character doesn't result in a navigation
 	clearInterval(timeoutId);
 
-	// If the user types one character and then changes its mind, they can use Escape
-	// to restart the buffer
-	if (keysPressedBuffer.length === 1 && event.key === "Escape") {
+	// If the user types one character and then changes its mind, they can use
+	// Escape or any non alphabetic key to restart the buffer
+	if (keysPressedBuffer.length === 1 && !/^[A-Za-z]$/.test(event.key)) {
 		keysPressedBuffer = "";
 		await browser.runtime.sendMessage({
 			type: "restoreKeyboardReachableHints",
@@ -73,7 +45,8 @@ async function keydownHandler(event: KeyboardEvent) {
 		return;
 	}
 
-	// After typing the first character we need to check if any of the hints start with that letter
+	// After typing the first character we need to check if any of the hints start
+	// with that letter
 	const firstCharactersInHints = new Set(
 		getHintsInTab().map((hint) => hint.slice(0, 1))
 	);
@@ -85,21 +58,12 @@ async function keydownHandler(event: KeyboardEvent) {
 
 	if (
 		hintIsReachable &&
-		!isTextField(event.target) &&
+		!isEditable(getActiveElement()) &&
 		/[a-z]/i.test(event.key) &&
 		!modifierKeyPressed(event)
 	) {
 		event.preventDefault();
-
-		// We need to check if keyboardClicking is on after event.preventDefault()
-		// because if we do it after, due to the async nature of the call the default
-		// behavior
-		const { keyboardClicking } = await browser.storage.local.get(
-			"keyboardClicking"
-		);
-		if (!keyboardClicking) {
-			return;
-		}
+		event.stopImmediatePropagation();
 
 		keysPressedBuffer += event.key;
 
@@ -134,6 +98,27 @@ async function keydownHandler(event: KeyboardEvent) {
 	}
 }
 
-export async function initKeyboardClicking() {
+export function initKeyboardClicking() {
 	window.addEventListener("keydown", keydownHandler, true);
 }
+
+function stopKeyboardClicking() {
+	window.removeEventListener("keydown", keydownHandler, true);
+}
+
+onSettingChange("keyboardClicking", async (keyboardClicking) => {
+	if (keyboardClicking) {
+		initKeyboardClicking();
+	} else {
+		stopKeyboardClicking();
+	}
+
+	const status = keyboardClicking ? "enabled" : "disabled";
+
+	await notify(`Keyboard clicking ${status}`, {
+		icon: status,
+		toastId: "keyboardToggle",
+	});
+
+	await refresh({ hintsCharacters: true });
+});

@@ -1,11 +1,11 @@
-import { FocusOnClickInput } from "./FocusOnClickInput";
-import { HintedIntersector, Intersector } from "./Intersector";
-
 export function assertDefined<T>(
-	value: T | null | undefined // eslint-disable-line @typescript-eslint/ban-types
+	value: T | null | undefined,
+	message?: string
 ): asserts value is T {
 	if (value === null || value === undefined) {
-		throw new Error(`Fatal error: value must not be null/undefined.`);
+		throw new Error(
+			message ?? `Fatal error: value must not be null/undefined.`
+		);
 	}
 }
 
@@ -15,32 +15,18 @@ export function isPromiseFulfilledResult<T>(
 	return result.status === "fulfilled";
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-export function isNotNull<T>(value: T | null): value is T {
-	return value !== null;
-}
-
-export function isFocusOnClickInput(
+export function hasPropertyValue(
 	element: Element
-): element is FocusOnClickInput {
-	return (
-		element instanceof HTMLInputElement &&
-		![
-			"button",
-			"checkbox",
-			"color",
-			"file",
-			"hidden",
-			"image",
-			"radio",
-			"reset",
-			"submit",
-		].includes(element.type)
-	);
+): element is Element & { value: string } {
+	return "value" in element;
 }
 
-export function isHintedIntersector(
-	intersector: Intersector
-): intersector is HintedIntersector {
-	return intersector.hintText !== undefined;
+export function hasPropertyDisabled(
+	element: Element
+): element is Element & { disabled: boolean } {
+	return "disabled" in element;
+}
+
+export function isHtmlElement(element: Element): element is HTMLElement {
+	return element instanceof HTMLElement;
 }

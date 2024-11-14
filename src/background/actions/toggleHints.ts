@@ -1,88 +1,99 @@
-import {
-	hintsToggleFromStorable,
-	hintsToggleToStorable,
-} from "../../common/HintsToggleFromStorable";
-import { getStored, setStored } from "../../lib/getStored";
-import { StorableHintsToggle } from "../../typings/RangoOptions";
 import { assertDefined } from "../../typings/TypingUtils";
-import { sendRequestToAllTabs } from "../messaging/sendRequestToAllTabs";
-import { sendRequestToCurrentTab } from "../messaging/sendRequestToCurrentTab";
-import { getCurrentTabId } from "../utils/getCurrentTab";
+import { sendRequestToContent } from "../messaging/sendRequestToContent";
+import { getCurrentTab } from "../utils/getCurrentTab";
+import { retrieve, store } from "../../common/storage";
+import { type RangoActionUpdateToggles } from "../../typings/RangoAction";
 
-export async function toggleHints(level: string, enable?: boolean) {
-	const storableHintsToggle = (await getStored(
-		"hintsToggle"
-	)) as StorableHintsToggle;
-	const hintsToggle = hintsToggleFromStorable(storableHintsToggle);
-	const currentTabId = await getCurrentTabId();
-	const [host, origin, pathname] = (await sendRequestToCurrentTab({
-		type: "getLocation",
-	})) as string[];
+export async function toggleHintsGlobal() {
+	const hintsToggleGlobal = await retrieve("hintsToggleGlobal");
+	const newStatus = !hintsToggleGlobal;
+	await store("hintsToggleGlobal", newStatus);
+	return newStatus;
+}
+
+export async function updateHintsToggle(
+	level: RangoActionUpdateToggles["arg"],
+	enable?: boolean
+) {
+	const currentTab = await getCurrentTab();
+	assertDefined(currentTab.url);
+	const { host, origin, pathname } = new URL(currentTab.url);
 
 	switch (level) {
-		case "everywhere":
+		case "everywhere": {
 			if (enable === undefined) {
-				hintsToggle.global = true;
-				hintsToggle.tabs = new Map();
-				hintsToggle.hosts = new Map();
-				hintsToggle.paths = new Map();
+				await store("hintsToggleGlobal", true);
+				await store("hintsToggleTabs", new Map());
+				await store("hintsToggleHosts", new Map());
+				await store("hintsTogglePaths", new Map());
+				await sendRequestToContent({
+					type: "updateNavigationToggle",
+					enable,
+				});
 			}
 
 			break;
+		}
 
 		case "now": {
-			assertDefined(enable);
-			const requestType = enable
-				? "enableHintsNavigation"
-				: "disableHintsNavigation";
-			await sendRequestToCurrentTab({
-				type: requestType,
+			await sendRequestToContent({
+				type: "updateNavigationToggle",
+				enable,
 			});
 			break;
 		}
 
-		case "global":
-			if (enable !== undefined) {
-				hintsToggle.global = enable;
-			}
-
+		case "global": {
+			await store("hintsToggleGlobal", enable ?? true);
 			break;
+		}
 
-		case "tab":
+		case "tab": {
+			const hintsToggleTabs = await retrieve("hintsToggleTabs");
+			assertDefined(currentTab.id);
 			if (enable === undefined) {
-				hintsToggle.tabs.delete(currentTabId);
+				hintsToggleTabs.delete(currentTab.id);
 			} else {
-				hintsToggle.tabs.set(currentTabId, enable);
+				hintsToggleTabs.set(currentTab.id, enable);
 			}
 
-			break;
+			await store("hintsToggleTabs", hintsToggleTabs);
 
-		case "host":
+			break;
+		}
+
+		case "host": {
+			const hintsToggleHosts = await retrieve("hintsToggleHosts");
 			if (host) {
 				if (enable === undefined) {
-					hintsToggle.hosts.delete(host);
+					hintsToggleHosts.delete(host);
 				} else {
-					hintsToggle.hosts.set(host, enable);
+					hintsToggleHosts.set(host, enable);
 				}
 			}
 
-			break;
+			await store("hintsToggleHosts", hintsToggleHosts);
 
-		case "page":
+			break;
+		}
+
+		case "page": {
+			const hintsTogglePaths = await retrieve("hintsTogglePaths");
 			if (origin && pathname) {
 				if (enable === undefined) {
-					hintsToggle.paths.delete(origin + pathname);
+					hintsTogglePaths.delete(origin + pathname);
 				} else {
-					hintsToggle.paths.set(origin + pathname, enable);
+					hintsTogglePaths.set(origin + pathname, enable);
 				}
 			}
 
-			break;
+			await store("hintsTogglePaths", hintsTogglePaths);
 
-		default:
 			break;
+		}
+
+		default: {
+			break;
+		}
 	}
-
-	await setStored({ hintsToggle: hintsToggleToStorable(hintsToggle) });
-	await sendRequestToAllTabs({ type: "fullHintsUpdate" });
 }

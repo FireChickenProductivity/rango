@@ -1,35 +1,25 @@
 import browser from "webextension-polyfill";
-import keyboardClickingIconUrl from "url:../../assets/icon-keyboard-clicking48.png";
-import defaultIconUrl from "url:../../assets/icon48.png";
-import { sendRequestToAllTabs } from "../messaging/sendRequestToAllTabs";
+import { retrieve, store } from "../../common/storage";
+import { setBrowserActionIcon } from "../utils/browserAction";
 
 export async function toggleKeyboardClicking() {
-	let { keyboardClicking } = (await browser.storage.local.get([
-		"keyboardClicking",
-	])) as { keyboardClicking: boolean };
-
-	keyboardClicking = !keyboardClicking;
-
-	if (keyboardClicking) {
-		await (browser.action
-			? browser.action.setIcon({ path: keyboardClickingIconUrl })
-			: browser.browserAction.setIcon({ path: keyboardClickingIconUrl }));
-		void sendRequestToAllTabs({ type: "initKeyboardNavigation" });
-	} else {
-		await (browser.action
-			? browser.action.setIcon({ path: defaultIconUrl })
-			: browser.browserAction.setIcon({ path: defaultIconUrl }));
-	}
-
-	await browser.storage.local.set({
-		keyboardClicking,
-	});
-
-	const { includeSingleLetterHints } = (await browser.storage.local.get([
-		"includeSingleLetterHints",
-	])) as { includeSingleLetterHints: boolean };
-
-	if (includeSingleLetterHints) {
-		await sendRequestToAllTabs({ type: "fullHintsUpdate" });
-	}
+	const keyboardClickingOld = await retrieve("keyboardClicking");
+	await store("keyboardClicking", !keyboardClickingOld);
 }
+
+browser.storage.onChanged.addListener(async (changes) => {
+	if ("keyboardClicking" in changes) {
+		await setBrowserActionIcon();
+
+		const keyboardClicking = await retrieve("keyboardClicking");
+
+		try {
+			await browser.contextMenus.update("keyboard-clicking", {
+				checked: keyboardClicking,
+			});
+		} catch {
+			// We ignore the error that could occur when initializing keyboardClicking
+			// if the menu hasn't yet been created.
+		}
+	}
+});
